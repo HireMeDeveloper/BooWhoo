@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ea146de871891b4a8c063f849eba27f, type: 3}
-  m_Name: Item
+  m_Name: PumpkingTest
   m_EditorClassIdentifier: 
-  Name: 
+  StringID: fa0d8a6e-c184-48ee-9bd6-9cc094389807
+  Name: TestingItem1
   SpriteIcon: {fileID: 0}
   Description: 
