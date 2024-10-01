@@ -61,6 +61,11 @@ public class InventorySystem : MonoBehaviour
 	{
 		if (!items.Contains(item)) return;
 
+		if (selectedItem != null && item == selectedItem) // If the item is selected, deselect it
+		{
+			SetSelectedItem(null);
+		}
+
 		items.Remove(item);
 		OnItemListChanged?.Invoke(this, new OnItemListChangedEventArgs
 		{
