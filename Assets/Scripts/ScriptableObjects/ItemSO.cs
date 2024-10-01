@@ -15,6 +15,7 @@ public class ItemSO : ScriptableObject
 
 	[ReadOnly] public string Name;
 	public Sprite SpriteIcon;
+	public bool IsValid { get { return ID != Guid.Empty; } }
 
 	[Tooltip("Multiple descriptions can be added, each will be displayed on a new line.")]
 	public string[] Description;

@@ -6,12 +6,32 @@ using UnityEngine.UI;
 public class TestButton : MonoBehaviour
 {
 	[SerializeField] private ItemSO itemSO;
-	public Button button;
+	public Button addItem;
+	public Button removeItem;
 	private void Awake()
 	{
-		button.onClick.AddListener(() =>
+		if (addItem == null || removeItem == null)
 		{
-			Debug.Log(itemSO.ID);
+			Debug.LogError("Buttons not assigned");
+			return;
+		}
+		addItem.onClick.AddListener(() =>
+		{
+			AddItem();
 		});
+		removeItem.onClick.AddListener(() =>
+		{
+			RemoveItem();
+		});
+	}
+
+	private void AddItem()
+	{
+		InventorySystem.Instance.AddItem(itemSO);
+	}
+
+	private void RemoveItem()
+	{
+		InventorySystem.Instance.RemoveItem(itemSO);
 	}
 }
