@@ -8,7 +8,6 @@ public class ItemSO : ScriptableObject
 {
 
 	public Guid ID { get; private set; }
-
 #if UNITY_EDITOR
 	[ReadOnly] public string StringID;
 #endif
