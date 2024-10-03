@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class TestButton : MonoBehaviour
 {
-	[SerializeField] private ItemSO itemSO;
+	[SerializeField] private ItemSO[] itemSO;
 	public Button addItem;
 	public Button removeItem;
+
+	int index = 0;
 	private void Awake()
 	{
 		if (addItem == null || removeItem == null)
@@ -27,11 +29,21 @@ public class TestButton : MonoBehaviour
 
 	private void AddItem()
 	{
-		InventorySystem.Instance.AddItem(itemSO);
+		InventorySystem.Instance.AddItem(itemSO[index]);
+		index++;
+		if (index >= itemSO.Length)
+		{
+			index = 0;
+		}
 	}
 
 	private void RemoveItem()
 	{
-		InventorySystem.Instance.RemoveItem(itemSO);
+		InventorySystem.Instance.RemoveItem(itemSO[index]);
+		index++;
+		if (index >= itemSO.Length)
+		{
+			index = 0;
+		}
 	}
 }

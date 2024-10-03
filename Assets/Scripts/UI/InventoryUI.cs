@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,8 +6,8 @@ public class InventoryUI : MonoBehaviour
 {
 
 	[SerializeField] private Transform inventorySlotContent;
-	[SerializeField] private Transform selectedItemContent;
-	[SerializeField] private TextMeshProUGUI selectedItemName;
+	[SerializeField] private Transform itemUIPrefab;
+
 	private Item[] itemList;
 
 	private void Start()
@@ -27,38 +25,61 @@ public class InventoryUI : MonoBehaviour
 		}
 
 		InventorySystem.Instance.OnItemListChanged += Inventory_OnItemListChanged;
-		InventorySystem.Instance.OnSelectedItemChanged += Inventory_OnSelectedItemChanged;
 	}
 
-	private void Inventory_OnSelectedItemChanged(object sender, InventorySystem.OnSelectedItemChangedEventArgs e)
-	{
-		if (e.Item == null) { selectedItemName.text = ""; return; }
-		selectedItemName.text = e.Item.Name;
-	}
+
 
 	private void Inventory_OnItemListChanged(object sender, InventorySystem.OnItemListChangedEventArgs e)
 	{
 
 		RefreshList(e.Items);
 
-		if (e.IsItemRemoved) // Item Removed
-		{
+		// // If Removed
+		// if (e.IsItemRemoved && GetItemUI(e.ItemChanged, out Item itemUI))
+		// {
+		// 	TextMeshProUGUI itemText = itemUI.GetComponentInChildren<TextMeshProUGUI>();
+		// 	string originalText = itemText.text;
 
-		}
-		else // Item Added
-		{
+		// 	// Add strike through effect
+		// 	itemText.text = $"<s>{originalText}</s>";
+		// 	// Change font color to gray
+		// 	itemText.color = Color.gray;
+		// }
+	}
 
+	private bool GetItemUI(ItemSO itemSO, out Item retItem)
+	{
+		retItem = null;
+		foreach (var item in itemList)
+		{
+			if (item.ItemData == itemSO)
+			{
+				retItem = item;
+				return true;
+			}
 		}
+
+		return false;
 	}
 
 	private void RefreshList(List<ItemSO> itemSOs)
 	{
-		ClearItemList();
+		ClearItemList(); // Clear the UI list
 
 		int index = 0;
 		foreach (var item in itemSOs)
 		{
 			itemList[index].SetItemData(item);
+			if (item.IsQuestDone)
+			{
+				TextMeshProUGUI itemText = itemList[index].GetComponentInChildren<TextMeshProUGUI>();
+				string originalText = itemText.text;
+
+				// Add strike through effect
+				itemText.text = $"<s>{originalText}</s>";
+				// Change font color to gray
+				itemText.color = Color.gray;
+			}
 			index++;
 		}
 	}

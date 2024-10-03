@@ -17,7 +17,8 @@ public class ItemSO : ScriptableObject
 	public bool IsValid { get { return ID != Guid.Empty; } }
 
 	[Tooltip("Multiple descriptions can be added, each will be displayed on a new line.")]
-	public string[] Description;
+	public string Description;
+	public bool IsQuestDone;
 
 	public ItemSO()
 	{

@@ -14,15 +14,8 @@ public class InventorySystem : MonoBehaviour
 		public bool IsItemRemoved;
 	}
 
-	public event EventHandler<OnSelectedItemChangedEventArgs> OnSelectedItemChanged;
-	public class OnSelectedItemChangedEventArgs : EventArgs
-	{
-		public ItemSO Item;
-	}
-
 	[SerializeField] private int maxInventory = 15;
 	private List<ItemSO> items;
-	private ItemSO selectedItem;
 
 	private void Awake()
 	{
@@ -32,23 +25,24 @@ public class InventorySystem : MonoBehaviour
 
 	private void Start()
 	{
-		SetSelectedItem(null);
-	}
 
-	public void SetSelectedItem(ItemSO itemSO)
-	{
-		selectedItem = itemSO;
-		OnSelectedItemChanged?.Invoke(this, new OnSelectedItemChangedEventArgs
+		OnItemListChanged?.Invoke(this, new OnItemListChangedEventArgs
 		{
-			Item = selectedItem
+			Items = items,
+			ItemChanged = null,
+			IsItemRemoved = false
 		});
 	}
 
+
 	public void AddItem(ItemSO item)
 	{
-		if (items.Count >= maxInventory) return;
+		if (items.Count >= maxInventory || items.Contains(item)) return;
 
-		items.Add(item);
+		// items.Add(item);
+		int firstIndex = 0;
+		items.Insert(firstIndex, item); // Put it at the start of the list
+
 		OnItemListChanged?.Invoke(this, new OnItemListChangedEventArgs
 		{
 			Items = items,
@@ -59,19 +53,29 @@ public class InventorySystem : MonoBehaviour
 
 	public void RemoveItem(ItemSO item)
 	{
-		if (!items.Contains(item)) return;
+		if (!items.Contains(item) || item.IsQuestDone) return;
 
-		if (selectedItem != null && item == selectedItem) // If the item is selected, deselect it
-		{
-			SetSelectedItem(null);
-		}
-
+		// Remove
 		items.Remove(item);
+		item.IsQuestDone = true;
+
+		// Insert at the end
+		int lastIndex = items.Count;
+		items.Insert(lastIndex, item); // Put it at the end of the list
+
 		OnItemListChanged?.Invoke(this, new OnItemListChangedEventArgs
 		{
 			Items = items,
 			ItemChanged = item,
 			IsItemRemoved = true
 		});
+	}
+
+	private void OnDestroy()
+	{
+		foreach (var item in items) // Reset all items
+		{
+			item.IsQuestDone = false;
+		}
 	}
 }

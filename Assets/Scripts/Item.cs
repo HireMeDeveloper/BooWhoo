@@ -6,34 +6,36 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
-	[SerializeField] private ItemSO itemData;
-	[SerializeField] private Image backgroundImage;
-	[SerializeField] private TextMeshProUGUI itemName;
-	[SerializeField] private Button button;
+	public ItemSO ItemData { get; private set; }
+	// [SerializeField] private Image itemImage;
+	// [SerializeField] private TextMeshProUGUI itemName;
+	[SerializeField] private TextMeshProUGUI itemDescription;
+	// [SerializeField] private Button button;
 
 
 	private void Awake()
 	{
-		button.onClick.AddListener(() => { InventorySystem.Instance.SetSelectedItem(itemData); });
 	}
 	private void Start()
 	{
-		SetItemData(itemData);
+		SetItemData(ItemData);
 	}
 
 	public void SetItemData(ItemSO item)
 	{
-		itemData = item;
+		ItemData = item;
 		if (item != null)
 		{
-			backgroundImage.sprite = itemData.SpriteIcon;
-			itemName.text = itemData.Name;
-			button.interactable = true;
+			// itemImage.sprite = itemData.SpriteIcon;
+			// itemName.text = itemData.Name;
+			// button.interactable = true;
+			itemDescription.text = ItemData.Description;
 		}
 		else
 		{
-			itemName.text = "";
-			button.interactable = false;
+			itemDescription.text = "";
+			// button.interactable = false;
+
 		}
 	}
 
