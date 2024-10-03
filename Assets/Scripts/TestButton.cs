@@ -8,6 +8,7 @@ public class TestButton : MonoBehaviour
 	[SerializeField] private ItemSO[] itemSO;
 	public Button addItem;
 	public Button removeItem;
+	public Button completeTask;
 
 	int index = 0;
 	private void Awake()
@@ -22,6 +23,11 @@ public class TestButton : MonoBehaviour
 			AddItem();
 		});
 		removeItem.onClick.AddListener(() =>
+		{
+			InventorySystem.Instance.UpdateSelectedItemIndex();
+		});
+
+		completeTask.onClick.AddListener(() =>
 		{
 			QuestComplete();
 		});
@@ -40,7 +46,7 @@ public class TestButton : MonoBehaviour
 	private void QuestComplete()
 	{
 
-		itemSO[0].QuestDone();
+		itemSO[2].QuestDone();
 	}
 
 	private void RemoveItem()
