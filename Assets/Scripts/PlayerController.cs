@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     // Components
     PlayerInput playerInput;
     Rigidbody2D rb;
+    BoxCollider2D bc;
 
     float speed = 5.0f;
     float jumpForce = 500.0f;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
+        bc = GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
-        if (playerInput.actions["jump"].WasPressedThisFrame()) {
+        if (playerInput.actions["jump"].WasPressedThisFrame() && IsGrounded()) {
             PlayerJump();
         }
     }
@@ -41,5 +43,12 @@ public class PlayerController : MonoBehaviour
 
     void PlayerJump() {
         rb.AddForce(new Vector2(0, jumpForce));
+    }
+
+    bool IsGrounded() {
+        if (rb.velocity.y == 0 && Physics2D.Raycast((Vector2)transform.position - bc.size, Vector2.down, 0.1f)) {
+            return true;
+        }
+        return false;
     }
 }
