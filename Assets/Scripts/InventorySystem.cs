@@ -14,7 +14,6 @@ public class InventorySystem : MonoBehaviour
 		public bool IsItemRemoved;
 	}
 
-	[SerializeField] private int maxInventory = 15;
 	private List<ItemSO> items;
 
 	private void Awake()
@@ -37,7 +36,7 @@ public class InventorySystem : MonoBehaviour
 
 	public void AddItem(ItemSO item)
 	{
-		if (items.Count >= maxInventory || items.Contains(item)) return;
+		if (items.Contains(item)) return;
 
 		int firstIndex = 0;
 		items.Insert(firstIndex, item); // Put it at the start of the list

@@ -28,7 +28,10 @@ public class ItemSO : ScriptableObject
 
 	}
 
-	public void QuestDone() // To be called by quest characters when the quest is done
+	/// <summary>
+	/// Call this method when the quest is done
+	/// </summary>
+	public void QuestDone()
 	{
 		if (IsQuestDone) return;
 
