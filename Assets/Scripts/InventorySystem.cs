@@ -39,7 +39,6 @@ public class InventorySystem : MonoBehaviour
 	{
 		if (items.Count >= maxInventory || items.Contains(item)) return;
 
-		// items.Add(item);
 		int firstIndex = 0;
 		items.Insert(firstIndex, item); // Put it at the start of the list
 
@@ -49,15 +48,21 @@ public class InventorySystem : MonoBehaviour
 			ItemChanged = item,
 			IsItemRemoved = false
 		});
+
+		item.OnQuestDone += (sender, e) => // Remove the item when the quest is done
+		{
+			RemoveItem(item);
+		};
+
 	}
 
+	// TODO: Convert to private after implementation of Quest Characters
 	public void RemoveItem(ItemSO item)
 	{
-		if (!items.Contains(item) || item.IsQuestDone) return;
+		if (!items.Contains(item)) return;
 
 		// Remove
 		items.Remove(item);
-		item.IsQuestDone = true;
 
 		// Insert at the end
 		int lastIndex = items.Count;

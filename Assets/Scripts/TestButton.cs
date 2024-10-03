@@ -23,7 +23,7 @@ public class TestButton : MonoBehaviour
 		});
 		removeItem.onClick.AddListener(() =>
 		{
-			RemoveItem();
+			QuestComplete();
 		});
 	}
 
@@ -35,6 +35,12 @@ public class TestButton : MonoBehaviour
 		{
 			index = 0;
 		}
+	}
+
+	private void QuestComplete()
+	{
+
+		itemSO[0].QuestDone();
 	}
 
 	private void RemoveItem()

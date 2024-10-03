@@ -33,18 +33,6 @@ public class InventoryUI : MonoBehaviour
 	{
 
 		RefreshList(e.Items);
-
-		// // If Removed
-		// if (e.IsItemRemoved && GetItemUI(e.ItemChanged, out Item itemUI))
-		// {
-		// 	TextMeshProUGUI itemText = itemUI.GetComponentInChildren<TextMeshProUGUI>();
-		// 	string originalText = itemText.text;
-
-		// 	// Add strike through effect
-		// 	itemText.text = $"<s>{originalText}</s>";
-		// 	// Change font color to gray
-		// 	itemText.color = Color.gray;
-		// }
 	}
 
 	private bool GetItemUI(ItemSO itemSO, out Item retItem)
@@ -67,18 +55,23 @@ public class InventoryUI : MonoBehaviour
 		ClearItemList(); // Clear the UI list
 
 		int index = 0;
-		foreach (var item in itemSOs)
+		foreach (var item in itemSOs) // Set item data to the UI
 		{
 			itemList[index].SetItemData(item);
+			TextMeshProUGUI itemText = itemList[index].GetComponentInChildren<TextMeshProUGUI>();
 			if (item.IsQuestDone)
 			{
-				TextMeshProUGUI itemText = itemList[index].GetComponentInChildren<TextMeshProUGUI>();
+
 				string originalText = itemText.text;
 
 				// Add strike through effect
 				itemText.text = $"<s>{originalText}</s>";
 				// Change font color to gray
 				itemText.color = Color.gray;
+			}
+			else
+			{
+				itemText.color = Color.white;
 			}
 			index++;
 		}

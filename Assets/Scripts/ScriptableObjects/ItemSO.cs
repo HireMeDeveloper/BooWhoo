@@ -19,12 +19,21 @@ public class ItemSO : ScriptableObject
 	[Tooltip("Multiple descriptions can be added, each will be displayed on a new line.")]
 	public string Description;
 	public bool IsQuestDone;
+	public event EventHandler OnQuestDone;
 
 	public ItemSO()
 	{
 		if (ID == Guid.Empty) // If the ID is empty, generate a new one
 			ID = Guid.NewGuid();
 
+	}
+
+	public void QuestDone() // To be called by quest characters when the quest is done
+	{
+		if (IsQuestDone) return;
+
+		IsQuestDone = true;
+		OnQuestDone?.Invoke(this, EventArgs.Empty);
 	}
 
 #if UNITY_EDITOR
