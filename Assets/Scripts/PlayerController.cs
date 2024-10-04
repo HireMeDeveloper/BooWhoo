@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     BoxCollider2D bc;
 
     float speed = 5.0f;
-    float jumpForce = 500.0f;
+    float jumpForce = 400.0f;
 
     void Start()
     {
@@ -46,7 +46,10 @@ public class PlayerController : MonoBehaviour
     }
 
     bool IsGrounded() {
-        if (rb.velocity.y == 0 && Physics2D.Raycast((Vector2)transform.position - bc.size, Vector2.down, 0.1f)) {
+        // Need to check raycast at edges of player or jumping while hanging off a ledge will fail
+        var leftRay = Physics2D.Raycast((Vector2)transform.position + new Vector2(-bc.size.x/2, 0), Vector2.down, 0.1f);
+        var rightRay = Physics2D.Raycast((Vector2)transform.position + new Vector2(bc.size.x/2, 0), Vector2.down, 0.1f);
+        if (rb.velocity.y == 0 && (leftRay || rightRay)) {
             return true;
         }
         return false;
