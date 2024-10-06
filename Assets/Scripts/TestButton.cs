@@ -1,61 +1,91 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TestButton : MonoBehaviour
 {
-	[SerializeField] private ItemSO[] itemSO;
-	public Button addItem;
-	public Button removeItem;
-	public Button completeTask;
+	[SerializeField] private TaskSO[] taskSOs;
+	[SerializeField] private ItemSO[] itemSOs;
 
-	int index = 0;
+	public Button addTask;
+	public Button completeTask;
+	public Button addItem;
+	public Button changeItem;
+
+	int addIndex = 0;
+
+	int addItemIndex = 0;
 	private void Awake()
 	{
-		if (addItem == null || removeItem == null)
+		if (addTask == null)
 		{
 			Debug.LogError("Buttons not assigned");
 			return;
 		}
-		addItem.onClick.AddListener(() =>
+		addTask.onClick.AddListener(() =>
 		{
-			AddItem();
+			AddTask();
 		});
-		removeItem.onClick.AddListener(() =>
-		{
-			InventorySystem.Instance.UpdateSelectedItemIndex();
-		});
+
 
 		completeTask.onClick.AddListener(() =>
 		{
-			QuestComplete();
+			TaskComplete();
+		});
+
+		addItem.onClick.AddListener(() =>
+		{
+
+			AddItem();
+		});
+
+		changeItem.onClick.AddListener(() =>
+		{
+			InventorySystem.Instance.IncrementSelectedItemIndex();
 		});
 	}
 
+
+
+	/// <summary>
+	/// Replicates how when the player interacts with an item, it gets added to the inventory
+	/// </summary>
 	private void AddItem()
 	{
-		InventorySystem.Instance.AddItem(itemSO[index]);
-		index++;
-		if (index >= itemSO.Length)
+		if (addItemIndex >= itemSOs.Length) return;
+
+		InventorySystem.Instance.AddItem(itemSOs[addItemIndex]); // Add the item to the inventory
+		addItemIndex++;
+
+	}
+
+	/// <summary>
+	/// Replicates how the NPC will give the player a task
+	/// </summary>
+	private void AddTask()
+	{
+		TaskSystem.Instance.AddTask(taskSOs[addIndex]); // Add the task
+
+		addIndex++;
+		if (addIndex >= taskSOs.Length)
 		{
-			index = 0;
+			addIndex = 0;
 		}
 	}
 
-	private void QuestComplete()
+	/// <summary>
+	/// Replicates what the NPC does when the player gives the required item for its quest
+	/// </summary>
+	private void TaskComplete()
 	{
-
-		itemSO[2].QuestDone();
-	}
-
-	private void RemoveItem()
-	{
-		InventorySystem.Instance.RemoveItem(itemSO[index]);
-		index++;
-		if (index >= itemSO.Length)
+		ItemSO item = InventorySystem.Instance.SelectedItem;  // Gets the Inventory system's selected item
+		foreach (var task in taskSOs)
 		{
-			index = 0;
+			if (task.requiredItem == item) // Check if the task's required item is the same as the selected item
+			{
+				TaskSystem.Instance.FinishTask(task); // Finish the task 
+				break;
+			}
 		}
+
 	}
 }
