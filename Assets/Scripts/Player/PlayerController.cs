@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,9 @@ public class PlayerController : MonoBehaviour
     PlayerInput playerInput;
     Rigidbody2D rb;
     BoxCollider2D bc;
+
+    //This is the object the player is currently on top of.
+    GameObject hoveredObject = null;
 
     float speed = 5.0f;
     float jumpForce = 400.0f;
@@ -32,6 +36,10 @@ public class PlayerController : MonoBehaviour
         if (playerInput.actions["jump"].WasPressedThisFrame() && IsGrounded()) {
             PlayerJump();
         }
+
+        if (playerInput.actions["Interact"].WasPressedThisFrame() && hoveredObject != null) {
+            PlayerInteract();
+        }
     }
 
     void PlayerMove() {
@@ -45,6 +53,10 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(new Vector2(0, jumpForce));
     }
 
+    void PlayerInteract() {
+        Debug.Log("success");
+    }
+
     bool IsGrounded() {
         // Need to check raycast at edges of player or jumping while hanging off a ledge will fail
         var leftRay = Physics2D.Raycast((Vector2)transform.position + new Vector2(-bc.size.x/2, 0), Vector2.down, 0.1f);
@@ -53,5 +65,17 @@ public class PlayerController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.tag == "Item") {
+            hoveredObject = col.gameObject;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D col) {
+        if (col.gameObject.tag == "Item") {
+            hoveredObject = null;
+        }
     }
 }
