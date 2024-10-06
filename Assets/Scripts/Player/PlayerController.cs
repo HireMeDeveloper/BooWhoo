@@ -11,8 +11,10 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D bc;
 
-    //This is the object the player is currently on top of.
+    // This is the object the player is currently on top of.
     GameObject hoveredObject = null;
+    // The item we are currently holding
+    GameObject heldObject = null;
 
     float speed = 5.0f;
     float jumpForce = 400.0f;
@@ -53,8 +55,22 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(new Vector2(0, jumpForce));
     }
 
+    // Allows player to pickup objects
     void PlayerInteract() {
-        Debug.Log("success");
+        if (heldObject == null) {
+            heldObject = hoveredObject;
+            hoveredObject = null;
+        } else {
+            heldObject.transform.SetParent(gameObject.transform.parent);
+            // Swap the held object and object on ground
+            heldObject.transform.position = hoveredObject.transform.position;
+            var tempObject = heldObject;
+            heldObject = hoveredObject;
+            hoveredObject = tempObject;
+        }
+        heldObject.transform.SetParent(gameObject.transform);
+        // Moves item right above player's head
+        heldObject.transform.localPosition = Vector2.up;
     }
 
     bool IsGrounded() {
@@ -68,13 +84,13 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.tag == "Item") {
+        if (col.gameObject.tag == "Item" && col.gameObject!= heldObject) {
             hoveredObject = col.gameObject;
         }
     }
 
     void OnTriggerExit2D(Collider2D col) {
-        if (col.gameObject.tag == "Item") {
+        if (col.gameObject.tag == "Item" && col.gameObject!= heldObject) {
             hoveredObject = null;
         }
     }
