@@ -10,8 +10,9 @@ public class TaskSO : ScriptableObject
 	public Guid ID { get; private set; }
 	[ReadOnly] public string StringID;
 
-	[ReadOnly] public string TaskName;
+	[ReadOnly] public string TaskName; // Rename to Name? To follow ItemSO's Name format
 
+	public string SingleLineDescription;
 	public string Description;
 
 	[Tooltip("Required item to complete the task")]

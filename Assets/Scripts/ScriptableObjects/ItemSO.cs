@@ -10,7 +10,7 @@ public class ItemSO : ScriptableObject
 	public Guid ID { get; private set; }
 	[ReadOnly] public string StringID;
 
-	[ReadOnly] public string Name;
+	[ReadOnly] public string Name; // Rename to ItemName? to follow TaskSO's Name format
 	public Sprite SpriteIcon;
 
 	public string Description;

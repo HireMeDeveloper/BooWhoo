@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaded15cdb2ca4f4da9b08f0fb20cb9f, type: 3}
   m_Name: Do me task 2
   m_EditorClassIdentifier: 
-  StringID: 7b3e3aaf-da9e-45fc-8144-978d39fbb86b
+  StringID: dae6856d-d563-4f22-b531-325b8b0f13ac
   TaskName: Do me task 2
-  Description: give me food
+  SingleLineDescription: Give me food
+  Description: I am hungry and Iw ant foor
   requiredItem: {fileID: 11400000, guid: 2ec4462b17535174b8aba9122156e1b2, type: 2}
-  CanBeDone: 0
   IsDone: 0
