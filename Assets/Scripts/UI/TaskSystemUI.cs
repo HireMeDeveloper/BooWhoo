@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class TaskSystemUI : MonoBehaviour
 {
-	[SerializeField] private Transform inventorySlotContent;
-	[SerializeField] private Transform taskUIPrefab;
+	[SerializeField] private Transform content;
 
 	private Task[] taskList;
 
 	private void Start()
 	{
-		if (inventorySlotContent.childCount <= 0)
+		if (content.childCount <= 0)
 		{
 			Debug.LogError("No inventory slots found");
 			return;
 		}
 
 		// Get the UI task lists from the inventory slot content
-		taskList = new Task[inventorySlotContent.childCount];
-		for (int i = 0; i < inventorySlotContent.childCount; i++)
+		taskList = new Task[content.childCount];
+		for (int i = 0; i < content.childCount; i++)
 		{
-			taskList[i] = inventorySlotContent.GetChild(i).GetComponent<Task>();
+			taskList[i] = content.GetChild(i).GetComponent<Task>();
 		}
 
 		TaskSystem.Instance.OnTaskListChanged += (object sender, TaskSystem.OnItemListChangedEventArgs e) =>
