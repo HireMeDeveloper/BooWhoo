@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     GameObject hoveredObject = null;
     // The item we are currently holding
     GameObject heldObject = null;
+    // List of interactables colliding with player.
+    // Remove when no longer colliding.
+    List<GameObject> hoveredInteractables = new List<GameObject>();
 
     float speed = 5.0f;
     float jumpForce = 400.0f;
@@ -39,7 +42,7 @@ public class PlayerController : MonoBehaviour
             PlayerJump();
         }
 
-        if (playerInput.actions["Interact"].WasPressedThisFrame() && hoveredObject != null) {
+        if (playerInput.actions["Interact"].WasPressedThisFrame() && hoveredInteractables.Count > 0) {
             PlayerInteract();
         }
     }
@@ -57,7 +60,24 @@ public class PlayerController : MonoBehaviour
 
     // Allows player to pickup objects
     void PlayerInteract() {
-        if (heldObject == null) {
+        if (hoveredInteractables[0].tag == "Item") {
+            var pickedItem = hoveredInteractables[0];
+            hoveredInteractables.RemoveAt(0);
+            // TODO: Add to inventory via global inventory manager
+            Destroy(pickedItem);
+        } else if (hoveredInteractables[0].tag == "NPC") {
+            Debug.Log("We talked to an NPC");
+            // TODO: Trigger NPC dialogue code
+        } else if (hoveredInteractables[0].tag == "Searchable") {
+            var pickedItem = hoveredInteractables[0];
+            pickedItem.GetComponent<InteractableItem>().PlayOpenAnim();
+            hoveredInteractables.RemoveAt(0);
+        }
+
+        // NOTE: Old item code, keeping in case we want to change it back later
+        // Allows player to carry one item max.
+
+        /*if (heldObject == null) {
             heldObject = hoveredObject;
             hoveredObject = null;
         } else {
@@ -70,7 +90,7 @@ public class PlayerController : MonoBehaviour
         }
         heldObject.transform.SetParent(gameObject.transform);
         // Moves item right above player's head
-        heldObject.transform.localPosition = Vector2.up;
+        heldObject.transform.localPosition = Vector2.up;*/
     }
 
     bool IsGrounded() {
@@ -84,14 +104,20 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.tag == "Item" && col.gameObject!= heldObject) {
-            hoveredObject = col.gameObject;
+        if (col.gameObject.tag == "Item" || col.gameObject.tag == "NPC" || col.gameObject.tag == "Searchable") {
+            // Gives last collided object priority for interaction if objects overlap
+            hoveredInteractables.Insert(0, col.gameObject);
         }
     }
 
     void OnTriggerExit2D(Collider2D col) {
-        if (col.gameObject.tag == "Item" && col.gameObject!= heldObject) {
-            hoveredObject = null;
+        if (col.gameObject.tag == "Item" || col.gameObject.tag == "NPC" || col.gameObject.tag == "Searchable") {
+            for (int i = 0; i < hoveredInteractables.Count; i++) {
+                if (col.gameObject == hoveredInteractables[i]) {
+                    hoveredInteractables.RemoveAt(i);
+                    break;
+                }
+            }
         }
     }
 }
