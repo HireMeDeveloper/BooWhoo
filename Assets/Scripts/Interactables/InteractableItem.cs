@@ -7,12 +7,18 @@ using UnityEngine;
 public class InteractableItem : MonoBehaviour
 {
     public Animator anim;
+    // Check this in editor for empty searchables
+    public bool isEmpty;
     bool opened = false;
 
     public void PlayOpenAnim() {
         if (!opened) {
             anim.Play("Open");
             opened = true;
+            if (isEmpty) {
+                // TODO: Display dialogue
+                Debug.Log("It was empty...");
+            }
         }
     }
     

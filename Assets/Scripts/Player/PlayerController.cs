@@ -11,10 +11,6 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D bc;
 
-    // This is the object the player is currently on top of.
-    GameObject hoveredObject = null;
-    // The item we are currently holding
-    GameObject heldObject = null;
     // List of interactables colliding with player.
     // Remove when no longer colliding.
     List<GameObject> hoveredInteractables = new List<GameObject>();
