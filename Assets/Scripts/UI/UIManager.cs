@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
+
+    public Canvas sceneTransitionCanvas;
 
     public Canvas pauseMenuCanvas;
 
@@ -41,7 +44,23 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene");
+        StartCoroutine(LoadScene("GameScene"));
+    }
+
+    public IEnumerator LoadScene(string sceneName)
+    {
+        sceneTransitionCanvas.GetComponent<FadeInOut>().FadeIn();
+
+        yield return new WaitForSeconds(1);
+        
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public IEnumerator StartScene()
+    {
+        yield return new WaitForSeconds(1);
+
+        sceneTransitionCanvas.GetComponent<FadeInOut>().FadeOut();
     }
 
     public void QuitGame()
