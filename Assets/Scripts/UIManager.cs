@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("ScottScene-Game");
+        SceneManager.LoadScene("GameScene");
     }
 
     public void QuitGame()
@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
     {
         Destroy(GameObject.Find("MainObjects"));
 
-        SceneManager.LoadScene("ScottScene-Main");
+        SceneManager.LoadScene("MainScene");
     }
 
 }
