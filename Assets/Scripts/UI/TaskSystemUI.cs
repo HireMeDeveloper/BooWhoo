@@ -33,16 +33,16 @@ public class TaskSystemUI : MonoBehaviour
 	/// Refresh the UI list
 	/// </summary>
 	/// <param name="TaskSOs"></param>
-	private void RefreshList(List<TaskSO> TaskSOs)
+	private void RefreshList(List<TaskData> TaskSOs)
 	{
 		ClearItemList(); // Clear the UI list
 
 		int index = 0;
 		foreach (var task in TaskSOs) // Set item data to the UI
 		{
-			taskList[index].SetItemData(task);
+			TaskSystem.Instance.GetTaskSO(task, out TaskSO taskSO);
+			taskList[index].SetItemData(taskSO);
 			TextMeshProUGUI itemText = taskList[index].GetComponentInChildren<TextMeshProUGUI>();
-
 			if (task.IsDone)
 			{
 				string originalText = itemText.text;

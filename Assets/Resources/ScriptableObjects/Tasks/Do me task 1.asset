@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaded15cdb2ca4f4da9b08f0fb20cb9f, type: 3}
   m_Name: Do me task 1
   m_EditorClassIdentifier: 
-  StringID: ab760fc4-f0a9-416c-8989-881bfe729f24
+  ID: 25736
   TaskName: Do me task 1
   SingleLineDescription: Banana?
   Description: banana banbabnanbn
   requiredItem: {fileID: 11400000, guid: 57787553d4bc7304bbfa32b464cd71e8, type: 2}
-  IsDone: 0
