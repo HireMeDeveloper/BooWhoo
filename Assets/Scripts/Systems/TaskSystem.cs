@@ -34,7 +34,7 @@ public class TaskSystem : MonoBehaviour
 	private List<TaskData> taskDataList;
 	public HashSet<TaskSO> MasterTaskSOList;
 
-	public bool ClearPlayerPref_TaskList = true;
+	public bool ClearPlayerPref_TaskList = false;
 
 	private void Awake()
 	{
@@ -45,7 +45,7 @@ public class TaskSystem : MonoBehaviour
 			taskDataList = new();
 			SaveTaskListToPlayerPref(taskDataList);
 			ClearPlayerPref_TaskList = false;
-			Debug.Log($"Cleared PlayerPrefs TaskList @ Task System Game Object: {gameObject.name}");
+			Debug.Log($"Cleared PlayerPrefs {TASK_LIST_KEY} @ Task System Game Object: {gameObject.name}");
 		}
 
 		// Load Scriptable Objects from Resources

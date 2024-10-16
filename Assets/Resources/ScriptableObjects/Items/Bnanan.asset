@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea146de871891b4a8c063f849eba27f, type: 3}
   m_Name: Bnanan
   m_EditorClassIdentifier: 
-  StringID: dbab89e5-e73a-4150-948e-d4ce4ba7d7f9
+  ID: 7302d0dffa8536845abed140439eb121
   Name: Bnanan
   SpriteIcon: {fileID: 21300000, guid: 50eb3d76f731b5e46a7b8a0a52d93ef9, type: 3}
   Description: ASDl
-  IsQuestDone: 0

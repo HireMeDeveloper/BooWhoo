@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea146de871891b4a8c063f849eba27f, type: 3}
   m_Name: PumpkingTest
   m_EditorClassIdentifier: 
-  StringID: bbc8d7a3-1a22-48c3-8ee2-bdc31009c1ff
+  ID: 26849df07d66dc141abcefebd3280f0c
   Name: PumpkingTest
   SpriteIcon: {fileID: 21300000, guid: 11e6f279ade864c6d951e8db74c11b54, type: 3}
   Description: This is something
-  IsQuestDone: 0

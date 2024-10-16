@@ -37,7 +37,7 @@ public class SelectedItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		ItemSO item = InventorySystem.Instance.SelectedItem;
 
 
-		string message = $"{item.Name}\n{item.Description}";
+		string message = $"{item.ItemName}\n{item.Description}";
 		TooltipUI.Instance.SetTooltipInfo(message);
 	}
 }

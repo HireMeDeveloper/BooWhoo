@@ -10,9 +10,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "ScriptableObjects/Task")]
 public class TaskSO : ScriptableObject
 {
-	[SerializeField][ReadOnly] public string ID;
+	[ReadOnly] public string ID;
 
-	[ReadOnly] public string TaskName; // Rename to Name? To follow ItemSO's Name format
+	[ReadOnly] public string TaskName;
 
 	public string SingleLineDescription;
 	public string Description;

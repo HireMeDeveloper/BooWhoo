@@ -1588,10 +1588,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 455647602133180060, guid: 77f682c8de9bdc04aa6c76569fc1fd8e, type: 3}
-      propertyPath: IsDebugging
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 991385087125852354, guid: 77f682c8de9bdc04aa6c76569fc1fd8e, type: 3}
       propertyPath: m_Name
       value: Task System
