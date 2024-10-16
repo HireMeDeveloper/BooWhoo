@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 6941009752658888797}
+  isEmpty: 0
 --- !u!95 &6941009752658888797
 Animator:
   serializedVersion: 5
