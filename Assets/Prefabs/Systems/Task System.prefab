@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb768f79f09910046857feb687ca14d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClearPlayerPref_TaskList: 0

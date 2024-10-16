@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaded15cdb2ca4f4da9b08f0fb20cb9f, type: 3}
-  m_Name: Do me task 1
+  m_Name: Do me task
   m_EditorClassIdentifier: 
-  StringID: ab760fc4-f0a9-416c-8989-881bfe729f24
-  TaskName: Do me task 1
-  SingleLineDescription: Banana?
-  Description: banana banbabnanbn
-  requiredItem: {fileID: 11400000, guid: 57787553d4bc7304bbfa32b464cd71e8, type: 2}
-  IsDone: 0
+  ID: 67bc8d316368d0d449d92c1de20cb460
+  TaskName: Do me task
+  SingleLineDescription: Fetch me your heart
+  Description: Give me something to eat
+  requiredItem: {fileID: 11400000, guid: 2b26fd14e6ff7f144b887883db6f92d5, type: 2}
