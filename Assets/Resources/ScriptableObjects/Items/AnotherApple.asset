@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea146de871891b4a8c063f849eba27f, type: 3}
   m_Name: AnotherApple
   m_EditorClassIdentifier: 
-  StringID: f342076a-1560-489d-87da-37e94a27ab62
+  ID: 82775ca986484e946b904bc5e1c307b3
   Name: AnotherApple
   SpriteIcon: {fileID: 21300000, guid: 3f2d8e263d8314a48a35859e01318f35, type: 3}
   Description: Hatdog Chees dog
-  IsQuestDone: 0
