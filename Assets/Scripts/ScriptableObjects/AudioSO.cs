@@ -7,16 +7,13 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "ScriptableObjects/Audio")]
 public class AudioSO : ScriptableObject
 {
-    public AudioClip audioClip;
-    public Slider slider;
-    public float volume;
-    public List<AudioData> audioData = new List<AudioData>();
+    public List<AudioData> audioSamples = new List<AudioData>();
     
     [Serializable]
     public struct AudioData {
-        public AudioSource audioSource;
-        public string audioPath;
-        public float volumeValue;
+        public string name;
+        public AudioClip audioClip;
+        public string type;
         public bool looping;
     }
 }

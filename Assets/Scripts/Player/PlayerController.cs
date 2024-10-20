@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerJump() {
+        AudioManager.CreateAudio("Jump");
         rb.AddForce(new Vector2(0, jumpForce));
     }
 
