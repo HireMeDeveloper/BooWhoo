@@ -8,30 +8,23 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioSO audioSO;
     private static List<AudioSource> activeSources = new List<AudioSource>();
-    private static AudioManager audioManagerInstance;
-
-    void Start() {
-        audioManagerInstance = this;
-        audioSO = Resources.Load<AudioSO>("ScriptableObjects/Audio/AudioSamples");
-        CreateAudio("MainMenu");
-    }
+    public static AudioManager Instance { get; private set; }
     
     // Create a new audio manager game object if one doesn't exist
     private static AudioManager GetInstance() {
-        if (audioManagerInstance == null) {
+        if (Instance == null) {
             var audioManager = new GameObject("AudioManager");
             audioManager.AddComponent<AudioManager>();
-            audioManagerInstance = audioManager.GetComponent<AudioManager>();
+            Instance = audioManager.GetComponent<AudioManager>();
             audioSO = Resources.Load<AudioSO>("ScriptableObjects/Audio/AudioSamples");
         }
-        return audioManagerInstance;
+        return Instance;
     }
 
     // Create a new audio source
     // trigger is the name of the audio sample in the audio Scriptable Object
     public static void CreateAudio(string trigger) {
         GetInstance();
-        var samples = audioSO.audioSamples;
         // Clearing out old audio components that are done playing
         if (activeSources.Count > 0) {
             int i = 0;
@@ -44,6 +37,7 @@ public class AudioManager : MonoBehaviour
                 }
             }
         }
+        var samples = audioSO.audioSamples;
         for (int i = 0; i < samples.Count; i++) {
             if (samples[i].name == trigger) {
                 var audioManager = GameObject.Find("AudioManager");

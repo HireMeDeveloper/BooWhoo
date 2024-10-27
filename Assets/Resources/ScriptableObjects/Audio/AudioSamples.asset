@@ -31,9 +31,9 @@ MonoBehaviour:
     looping: 0
   - name: Birds
     audioClip: {fileID: 8300000, guid: 8d9aa9247a5cd7b45a665e6172f47fd4, type: 3}
-    type: ambience
+    type: ambient
     looping: 1
   - name: Wind
     audioClip: {fileID: 8300000, guid: 5009fc190ddce3447bc283e2ec170b04, type: 3}
-    type: ambience
+    type: ambient
     looping: 0
