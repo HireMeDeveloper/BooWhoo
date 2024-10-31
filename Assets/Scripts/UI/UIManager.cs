@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
         playerControls = new PlayerControls();
 
         LoadAudioData();
+        AudioManager.CreateAudio("MainMenu");
     }
 
     public void OnEnable()
@@ -71,6 +72,8 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator StartScene()
     {
+        AudioManager.CreateAudio("GameBGM");
+        AudioManager.CreateAudio("Birds");
         yield return new WaitForSeconds(1);
 
         sceneTransitionCanvas.GetComponent<FadeInOut>().FadeOut();

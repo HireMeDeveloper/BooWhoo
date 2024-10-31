@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     // Create a new audio manager game object if one doesn't exist
     private static AudioManager GetInstance() {
         if (Instance == null) {
+            activeSources = new List<AudioSource>(); // Need this to reset List data when switching scenes or error occurs
             var audioManager = new GameObject("AudioManager");
             audioManager.AddComponent<AudioManager>();
             Instance = audioManager.GetComponent<AudioManager>();
