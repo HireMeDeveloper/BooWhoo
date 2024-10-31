@@ -21,12 +21,9 @@ public class AudioManager : MonoBehaviour
         }
         return Instance;
     }
-
-    // Create a new audio source
-    // trigger is the name of the audio sample in the audio Scriptable Object
-    public static void CreateAudio(string trigger) {
-        GetInstance();
-        // Clearing out old audio components that are done playing
+    
+    // Clearing out old audio components that are done playing
+    private static void ClearAudioComponents() {
         if (activeSources.Count > 0) {
             int i = 0;
             while (i < activeSources.Count) {
@@ -38,6 +35,13 @@ public class AudioManager : MonoBehaviour
                 }
             }
         }
+    }
+    // Create a new audio source
+    // trigger is the name of the audio sample in the audio Scriptable Object
+    public static void CreateAudio(string trigger) {
+        GetInstance();
+        ClearAudioComponents();
+        // Creates the audio components
         var samples = audioSO.audioSamples;
         for (int i = 0; i < samples.Count; i++) {
             if (samples[i].name == trigger) {
@@ -54,6 +58,12 @@ public class AudioManager : MonoBehaviour
     }
 
     public static void UpdateVolume() {
-        // TODO: add the code then call this method in save settings in UIManager
+        var samples = audioSO.audioSamples;
+        for (int i = 0; i < activeSources.Count; i++) {
+            for (int j = 0; j < samples.Count; j++) {
+                if (activeSources[i].clip == samples[j].audioClip)
+                activeSources[i].volume = PlayerPrefs.GetFloat(samples[j].type);
+            }
+        }
     }
 }

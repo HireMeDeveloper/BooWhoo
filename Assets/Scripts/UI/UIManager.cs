@@ -122,6 +122,7 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetFloat(musicPref, musicSlider.value);
         PlayerPrefs.SetFloat(ambientPref, ambientSlider.value);
         PlayerPrefs.SetFloat(sfxPref, sfxSlider.value);
+        AudioManager.UpdateVolume();
     }
 
     public void LoadAudioData()
