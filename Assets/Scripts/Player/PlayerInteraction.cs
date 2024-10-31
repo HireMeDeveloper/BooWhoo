@@ -11,6 +11,7 @@ public class PlayerInteraction : MonoBehaviour
 
     // Allows player to interact with objects and NPCs
     public void Interact() {
+        AudioManager.CreateAudio("Interact");
         if (hoveredInteractables[0].tag == "Item" || hoveredInteractables[0].tag == "Searchable") {
             var pickedItem = hoveredInteractables[0];
             pickedItem.GetComponent<InteractableItem>().OnInteract(this);
