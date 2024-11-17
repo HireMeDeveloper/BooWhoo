@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,8 +14,6 @@ public class UIManager : MonoBehaviour
 
     public Canvas optionsMenuCanvas;
 
-    PlayerControls playerControls;
-
     public Slider musicSlider;
     public Slider ambientSlider;
     public Slider sfxSlider;
@@ -23,6 +22,8 @@ public class UIManager : MonoBehaviour
     private string ambientPref = "ambient";
     private string sfxPref = "sfx";
 
+    private PlayerInput playerInput;
+    
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -34,7 +35,7 @@ public class UIManager : MonoBehaviour
             Instance = this;
         }
 
-        playerControls = new PlayerControls();
+        playerInput = GetComponent<PlayerInput>();
 
         LoadAudioData();
         AudioManager.CreateAudio("MainMenu");
@@ -42,17 +43,19 @@ public class UIManager : MonoBehaviour
 
     public void OnEnable()
     {
-        playerControls.Enable();
+        playerInput.actions["toggle-pause"].performed += OnPauseGame;
     }
 
-    public void Disable()
+    public void OnDisable()
     {
-        playerControls.Disable();
+        playerInput.actions["toggle-pause"].performed -= OnPauseGame;
     }
 
-    public void Update()
+    private void OnPauseGame(InputAction.CallbackContext value)
     {
-        if (playerControls.player.togglepause.ReadValue<float>() > 0.1f)
+        if (pauseMenuCanvas.gameObject.activeSelf)
+            ClosePauseMenu();
+        else
             OpenPauseMenu();
     }
 
@@ -117,19 +120,43 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("MainScene");
     }
 
-    public void SaveAudioData()
+    public void SaveMusicData()
     {
         PlayerPrefs.SetFloat(musicPref, musicSlider.value);
+        
+        //AudioManager.UpdateVolume();
+    }
+
+    public void SaveAmbientData()
+    {
         PlayerPrefs.SetFloat(ambientPref, ambientSlider.value);
+        
+        //AudioManager.UpdateVolume();
+    }
+
+    public void SaveSfxData()
+    {
         PlayerPrefs.SetFloat(sfxPref, sfxSlider.value);
-        AudioManager.UpdateVolume();
+
+        //AudioManager.UpdateVolume();
     }
 
     public void LoadAudioData()
     {
-        musicSlider.value = PlayerPrefs.GetFloat(musicPref);
-        ambientSlider.value = PlayerPrefs.GetFloat(ambientPref);
-        sfxSlider.value = PlayerPrefs.GetFloat(sfxPref);
+        if (PlayerPrefs.HasKey(musicPref))
+        {
+            musicSlider.value = PlayerPrefs.GetFloat(musicPref);
+        }
+
+        if (PlayerPrefs.HasKey(ambientPref))
+        {
+            ambientSlider.value = PlayerPrefs.GetFloat(ambientPref);
+        }
+
+        if (PlayerPrefs.HasKey(sfxPref))
+        {
+            sfxSlider.value = PlayerPrefs.GetFloat(sfxPref);
+        }
     }
 
 }
