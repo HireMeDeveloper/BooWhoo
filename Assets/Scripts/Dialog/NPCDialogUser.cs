@@ -1,5 +1,5 @@
 using UnityEngine;
-public class NPCDialogUser : DialogUser
+public class NPCDialogUser : DialogUser, IInteractable
 {
     [SerializeField] private Conversation preHelpConversation;
     [SerializeField] private Conversation postHelpConversation;
@@ -9,7 +9,7 @@ public class NPCDialogUser : DialogUser
     private bool hasBeenHelped = false;
     private bool hasBeenGivenCandy = false;
 
-    private void Update()
+    /*private void Update()
     {
         base.Update();
 
@@ -29,7 +29,7 @@ public class NPCDialogUser : DialogUser
         }
     }
 
-    public void Interact()
+    /*public void Interact()
     {
         // TODO: Read candy count from player prefs
         var candyCount = 0;
@@ -50,7 +50,7 @@ public class NPCDialogUser : DialogUser
         }
 
         Listen();
-    }
+    }*/
 
     private void GiveCandy()
     {
@@ -77,5 +77,51 @@ public class NPCDialogUser : DialogUser
     {
         hasBeenHelped = true;
         TriggerConversation(giveItemConversation);
+    }
+
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.tag == "Player") {
+            OnEnter(col.gameObject.GetComponent<PlayerInteraction>());
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D col) {
+        if (col.gameObject.tag == "Player") {
+            OnExit(col.gameObject.GetComponent<PlayerInteraction>());
+        }
+    }
+
+     // IInteractable methods
+    public void OnEnter(PlayerInteraction playerInteraction) {
+        playerInteraction.hoveredInteractables.Insert(0, gameObject);
+    }
+    public void OnExit(PlayerInteraction playerInteraction) {
+        for (int i = 0; i < playerInteraction.hoveredInteractables.Count; i++) {
+            if (gameObject == playerInteraction.hoveredInteractables[i]) {
+                playerInteraction.hoveredInteractables.RemoveAt(i);
+                break;
+            }
+        }
+    }
+    public void OnInteract(PlayerInteraction playerInteraction) {
+        // TODO: Read candy count from player prefs
+        var candyCount = 1;
+
+        if (hasBeenGivenCandy == false && candyCount > 0)
+        {
+            GiveCandy();
+            return;
+        }
+
+        // TODO: Read currentItem from player prefs
+        var hasValidItem = true;
+
+        if (hasValidItem)
+        {
+            GiveItem();
+            return;
+        }
+
+        Listen();
     }
 }
