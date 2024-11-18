@@ -23,14 +23,22 @@ public class TaskSystemUI : MonoBehaviour
 			taskList[i] = content.GetChild(i).GetComponent<Task>();
 		}
 
-		TaskSystem.Instance.OnTaskListChanged += (object sender, TaskSystem.OnItemListChangedEventArgs e) =>
+		TaskSystem.OnTaskListChanged += (object sender, TaskSystem.OnItemListChangedEventArgs e) =>
+		{
+			RefreshList(e.TaskList);
+		};
+	}
+
+	private void Disable()
+	{
+		TaskSystem.OnTaskListChanged -= (object sender, TaskSystem.OnItemListChangedEventArgs e) =>
 		{
 			RefreshList(e.TaskList);
 		};
 	}
 
 	/// <summary>
-	/// Refresh the UI list
+	/// Refresh the UI list with the new task list by setting the predefined Task Scripts in the Content GameObject found in this GameObject. 
 	/// </summary>
 	/// <param name="TaskSOs"></param>
 	private void RefreshList(List<TaskData> TaskSOs)
