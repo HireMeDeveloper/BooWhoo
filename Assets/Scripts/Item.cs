@@ -1,16 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
 	public ItemSO ItemData { get; private set; }
-	// [SerializeField] private Image itemImage;
-	// [SerializeField] private TextMeshProUGUI itemName;
 	[SerializeField] private TextMeshProUGUI itemDescription;
-	// [SerializeField] private Button button;
 
 
 	private void Awake()
@@ -21,21 +15,20 @@ public class Item : MonoBehaviour
 		SetItemData(ItemData);
 	}
 
+	/// <summary>
+	/// Set item data to the UI
+	/// </summary>
+	/// <param name="item"></param>
 	public void SetItemData(ItemSO item)
 	{
 		ItemData = item;
 		if (item != null)
 		{
-			// itemImage.sprite = itemData.SpriteIcon;
-			// itemName.text = itemData.Name;
-			// button.interactable = true;
 			itemDescription.text = ItemData.Description;
 		}
 		else
 		{
 			itemDescription.text = "";
-			// button.interactable = false;
-
 		}
 	}
 

@@ -22,10 +22,19 @@ using UnityEngine;
 public class TaskSystem : MonoBehaviour
 {
 	public static TaskSystem Instance { get; private set; }
+	/// <summary>
+	///	Path to the Task Scriptable Objects in the Resources folder.
+	/// </summary>
 	private const string TASK_SO_PATH = "ScriptableObjects/Tasks";
+	/// <summary>
+	/// PlayerPrefs key to store the task list.
+	/// </summary>
 	private const string TASK_LIST_KEY = "TaskList";
 
-	public event EventHandler<OnItemListChangedEventArgs> OnTaskListChanged;
+	/// <summary>
+	/// When the task list has been changed (task added or removed)
+	/// </summary>
+	public static event EventHandler<OnItemListChangedEventArgs> OnTaskListChanged;
 	public class OnItemListChangedEventArgs : EventArgs
 	{
 		public List<TaskData> TaskList;
@@ -87,7 +96,10 @@ public class TaskSystem : MonoBehaviour
 	}
 
 
-
+	/// <summary>
+	/// Add a task to the task list.
+	/// </summary>
+	/// <param name="task"></param>
 	public void AddTask(TaskSO task)
 	{
 		// If task is not in master list or task is already in the list, do not add the task to the list
@@ -123,7 +135,7 @@ public class TaskSystem : MonoBehaviour
 	/// Load the task list from PlayerPrefs.
 	/// </summary>
 	/// <returns></returns>
-	public List<TaskData> LoadTasksFromPlayerPrefs()
+	private List<TaskData> LoadTasksFromPlayerPrefs()
 	{
 		List<TaskData> _taskList = new List<TaskData>();
 		if (PlayerPrefs.HasKey(TASK_LIST_KEY)) // If the key exists in PlayerPrefs
@@ -148,7 +160,10 @@ public class TaskSystem : MonoBehaviour
 		SaveTaskListToPlayerPref(taskDataList);
 	}
 
-
+	/// <summary>
+	/// Mark the task as completed and move it to the end of the list.
+	/// </summary>
+	/// <param name="task"></param>
 	public void FinishTask(TaskSO task)
 	{
 		// If task is not in master list or task is NOT already in the list, do not finish the task

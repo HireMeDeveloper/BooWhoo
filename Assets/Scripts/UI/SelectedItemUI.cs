@@ -6,14 +6,21 @@ public class SelectedItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {
 	[SerializeField] private Image sprite;
 
-
-
-
 	private void Start()
 	{
-		InventorySystem.Instance.OnSelectedItemChanged += Inventory_OnSelectedItemChanged;
+		InventorySystem.OnSelectedItemChanged += Inventory_OnSelectedItemChanged;
 	}
 
+	private void Disable()
+	{
+		InventorySystem.OnSelectedItemChanged -= Inventory_OnSelectedItemChanged;
+	}
+
+	/// <summary>
+	/// Set the sprite icon of the selected item
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	private void Inventory_OnSelectedItemChanged(object sender, InventorySystem.OnSelectedItemChangedEventArgs e)
 	{
 		if (e.Item == null)
@@ -24,13 +31,20 @@ public class SelectedItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		sprite.sprite = e.Item.SpriteIcon;
 	}
 
-	// XXX: Unsure if this is necessary or should put it in an Actual Item?
+	/// <summary>
+	/// Clear the item data when the mouse exits the item
+	/// </summary>
+	/// <param name="eventData"></param>
 	public void OnPointerExit(PointerEventData eventData)
 	{
 		if (TooltipUI.Instance == null) return;
 		TooltipUI.Instance.SetTooltipInfo("");
 	}
 
+	/// <summary>
+	/// Display the item data when the mouse hovers over the item
+	/// </summary>
+	/// <param name="eventData"></param>
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		if (InventorySystem.Instance == null || InventorySystem.Instance.SelectedItem == null || TooltipUI.Instance == null) return;
