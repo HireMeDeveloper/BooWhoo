@@ -49,12 +49,15 @@ public class InventorySystem : MonoBehaviour
 
 	public ItemSO SelectedItem { get; private set; }
 	public List<ItemSO> InventoryList { get; private set; }
+	public CandyInventory CandyInventory { get; private set; }
 
 	public bool ClearPlayerPref_InventoryList = false;
 
 	private void Awake()
 	{
 		Instance = this;
+		CandyInventory = new CandyInventory(ClearPlayerPref_InventoryList);
+
 		if (ClearPlayerPref_InventoryList) // For debugging, Remove when final build is done
 		{
 			InventoryList = new();
@@ -65,12 +68,17 @@ public class InventorySystem : MonoBehaviour
 
 		InventoryList = LoadInventoryFromPlayerPrefs();
 
-
 	}
 
 	private void Start()
 	{
 		ResetSelectedItemIndex();
+	}
+
+	private void Disable()
+	{
+		SaveTaskListToPlayerPref(InventoryList);
+		CandyInventory.OnDisable();
 	}
 
 	public void IncrementSelectedItemIndex()

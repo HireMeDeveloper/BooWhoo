@@ -11,6 +11,9 @@ public class TestButton : MonoBehaviour
 	public Button addItem;
 	public Button changeItem;
 
+	public Button addCandy;
+	public Button removeCandy;
+
 	int addIndex = 0;
 
 	int addItemIndex = 0;
@@ -41,6 +44,16 @@ public class TestButton : MonoBehaviour
 		changeItem.onClick.AddListener(() =>
 		{
 			InventorySystem.Instance.IncrementSelectedItemIndex();
+		});
+
+		addCandy.onClick.AddListener(() =>
+		{
+			CandyInventory.Instance.AddCandy(1);
+		});
+
+		removeCandy.onClick.AddListener(() =>
+		{
+			CandyInventory.Instance.RemoveCandy(1);
 		});
 	}
 
