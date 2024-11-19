@@ -6,14 +6,23 @@ using UnityEngine;
 public class CandyInventory
 {
 	public static CandyInventory Instance { get; private set; }
+	/// <summary>
+	///	The PlayerPrefs key to store the amount of candy in the player's inventory.
+	/// </summary>
 	public static string CANDY_AMOUNT_KEY = "Candy_Inventory_Amount";
 
+	/// <summary>
+	/// When the amount of candy in the player's inventory has changed.
+	/// </summary>
 	public static event EventHandler<OnCandyAmountChangedEventArgs> OnCandyAmountChanged;
 	public class OnCandyAmountChangedEventArgs : EventArgs
 	{
 		public int CandyAmount;
 	}
 
+	/// <summary>
+	/// The amount of candy in the player's inventory.
+	/// </summary>
 	public int CandyCount { get; private set; }
 	public CandyInventory(bool isClearPlayerPref = false)
 	{
@@ -31,12 +40,20 @@ public class CandyInventory
 		SaveToPlayerPref();
 	}
 
+	/// <summary>
+	/// Adds candy to the player's inventory.
+	/// </summary>
+	/// <param name="amount"></param>
 	public void AddCandy(int amount)
 	{
 		CandyCount += amount;
 		OnCandyAmountChanged?.Invoke(this, new OnCandyAmountChangedEventArgs { CandyAmount = CandyCount });
 	}
 
+	/// <summary>
+	/// Removes candy from the player's inventory.
+	/// </summary>
+	/// <param name="amount"></param>
 	public void RemoveCandy(int amount)
 	{
 		CandyCount -= amount;
@@ -47,6 +64,9 @@ public class CandyInventory
 		OnCandyAmountChanged?.Invoke(this, new OnCandyAmountChangedEventArgs { CandyAmount = CandyCount });
 	}
 
+	/// <summary>
+	/// Saves the amount of candy in the player's inventory to PlayerPrefs.
+	/// </summary>
 	private void SaveToPlayerPref()
 	{
 		// Serialize the taskList to JSON
@@ -55,6 +75,10 @@ public class CandyInventory
 		PlayerPrefs.Save(); // Ensure PlayerPrefs is saved
 	}
 
+	/// <summary>
+	/// Load the amount of candy in the player's inventory from PlayerPrefs.
+	/// </summary>
+	/// <returns></returns>
 	private int LoadFromPlayerPref()
 	{
 		int candyCount = 0;
