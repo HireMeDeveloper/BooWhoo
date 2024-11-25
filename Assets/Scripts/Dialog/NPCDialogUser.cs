@@ -5,52 +5,11 @@ public class NPCDialogUser : DialogUser, IInteractable
     [SerializeField] private Conversation postHelpConversation;
     [SerializeField] private Conversation giveCandyConversation;
     [SerializeField] private Conversation giveItemConversation;
+    [SerializeField] private GameObject speechBubble;
 
     private bool hasBeenHelped = false;
     private bool hasBeenGivenCandy = false;
-
-    /*private void Update()
-    {
-        base.Update();
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Listen();
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GiveCandy();
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            GiveItem();
-        }
-    }
-
-    /*public void Interact()
-    {
-        // TODO: Read candy count from player prefs
-        var candyCount = 0;
-
-        if (hasBeenGivenCandy == false && candyCount > 0)
-        {
-            GiveCandy();
-            return;
-        }
-
-        // TODO: Read currentItem from player prefs
-        var hasValidItem = false;
-
-        if (hasValidItem)
-        {
-            GiveItem();
-            return;
-        }
-
-        Listen();
-    }*/
+    private bool playedPreHelpOnce = false;
 
     private void GiveCandy()
     {
@@ -93,9 +52,12 @@ public class NPCDialogUser : DialogUser, IInteractable
 
      // IInteractable methods
     public void OnEnter(PlayerInteraction playerInteraction) {
+        speechBubble.SetActive(true);
         playerInteraction.hoveredInteractables.Insert(0, gameObject);
     }
     public void OnExit(PlayerInteraction playerInteraction) {
+        speechBubble.SetActive(false);
+        CloseConversation();
         for (int i = 0; i < playerInteraction.hoveredInteractables.Count; i++) {
             if (gameObject == playerInteraction.hoveredInteractables[i]) {
                 playerInteraction.hoveredInteractables.RemoveAt(i);
@@ -104,6 +66,13 @@ public class NPCDialogUser : DialogUser, IInteractable
         }
     }
     public void OnInteract(PlayerInteraction playerInteraction) {
+        speechBubble.SetActive(false);
+        if (!playedPreHelpOnce) {
+            Listen();
+            playedPreHelpOnce = true;
+            return;
+        }
+
         // TODO: Read candy count from player prefs
         var candyCount = 1;
 
@@ -116,7 +85,7 @@ public class NPCDialogUser : DialogUser, IInteractable
         // TODO: Read currentItem from player prefs
         var hasValidItem = true;
 
-        if (hasValidItem)
+        if (hasBeenHelped == false && hasValidItem)
         {
             GiveItem();
             return;
