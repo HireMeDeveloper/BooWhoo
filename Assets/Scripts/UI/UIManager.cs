@@ -14,6 +14,10 @@ public class UIManager : MonoBehaviour
 
     public Canvas optionsMenuCanvas;
 
+    public GameObject taskSystemUI;
+
+    public GameObject inventorySystemUI;
+
     public Slider musicSlider;
     public Slider ambientSlider;
     public Slider sfxSlider;
@@ -39,6 +43,11 @@ public class UIManager : MonoBehaviour
 
         AudioManager.CreateAudio("MainMenu");
         LoadAudioData();
+
+        CloseOptionsMenu();
+        ClosePauseMenu();
+        CloseTaskSystemUI();
+        CloseInventorySystemUI();
     }
 
     public void OnEnable()
@@ -96,6 +105,9 @@ public class UIManager : MonoBehaviour
     public void OpenPauseMenu()
     {
         pauseMenuCanvas.gameObject.SetActive(true);
+        CloseTaskSystemUI();
+        CloseInventorySystemUI();
+
     }
     
     public void ClosePauseMenu()
@@ -111,6 +123,28 @@ public class UIManager : MonoBehaviour
     public void CloseOptionsMenu()
     {
         optionsMenuCanvas.gameObject.SetActive(false);
+    }
+
+    public void OpenTaskSystemUI()
+    {
+        taskSystemUI.SetActive(true);
+        ClosePauseMenu();
+    }
+
+    public void CloseTaskSystemUI()
+    {
+        taskSystemUI.SetActive(false);
+    }
+
+    public void OpenInventorySystemUI()
+    {
+        inventorySystemUI.SetActive(true);
+        ClosePauseMenu();
+    }
+
+    public void CloseInventorySystemUI()
+    {
+        inventorySystemUI.SetActive(false);
     }
 
     public void ReturnToMainScene()

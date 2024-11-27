@@ -23,11 +23,14 @@ using UnityEngine;
 public class InventorySystem : MonoBehaviour
 {
 	public static InventorySystem Instance { get; private set; }
+	/// <summary>
+	/// PlayerPrefs key to store the inventory list.
+	/// </summary>
 	private const string INVENTORY_LIST_KEY = "InventoryList";
 	/// <summary>
 	/// When an item has been added or removed from the inventory
 	/// </summary>
-	public event EventHandler<OnItemListChangedEventArgs> OnItemListChanged;
+	public static event EventHandler<OnItemListChangedEventArgs> OnItemListChanged;
 	public class OnItemListChangedEventArgs : EventArgs
 	{
 		public List<ItemSO> InventoryList;
@@ -36,7 +39,7 @@ public class InventorySystem : MonoBehaviour
 	/// <summary>
 	/// When the player has selected a new item from the list of items (InventoryList)
 	/// </summary>
-	public event EventHandler<OnSelectedItemChangedEventArgs> OnSelectedItemChanged;
+	public static event EventHandler<OnSelectedItemChangedEventArgs> OnSelectedItemChanged;
 	public class OnSelectedItemChangedEventArgs : EventArgs
 	{
 		public ItemSO Item;
@@ -46,12 +49,15 @@ public class InventorySystem : MonoBehaviour
 
 	public ItemSO SelectedItem { get; private set; }
 	public List<ItemSO> InventoryList { get; private set; }
+	public CandyInventory CandyInventory { get; private set; }
 
 	public bool ClearPlayerPref_InventoryList = false;
 
 	private void Awake()
 	{
 		Instance = this;
+		CandyInventory = new CandyInventory(ClearPlayerPref_InventoryList);
+
 		if (ClearPlayerPref_InventoryList) // For debugging, Remove when final build is done
 		{
 			InventoryList = new();
@@ -62,12 +68,17 @@ public class InventorySystem : MonoBehaviour
 
 		InventoryList = LoadInventoryFromPlayerPrefs();
 
-
 	}
 
 	private void Start()
 	{
 		ResetSelectedItemIndex();
+	}
+
+	private void Disable()
+	{
+		SaveTaskListToPlayerPref(InventoryList);
+		CandyInventory.OnDisable();
 	}
 
 	public void IncrementSelectedItemIndex()
@@ -161,7 +172,7 @@ public class InventorySystem : MonoBehaviour
 	/// Load the task list from PlayerPrefs.
 	/// </summary>
 	/// <returns></returns>
-	public List<ItemSO> LoadInventoryFromPlayerPrefs()
+	private List<ItemSO> LoadInventoryFromPlayerPrefs()
 	{
 		List<ItemSO> _inventoryList = new List<ItemSO>();
 		if (PlayerPrefs.HasKey(INVENTORY_LIST_KEY)) // If the key exists in PlayerPrefs

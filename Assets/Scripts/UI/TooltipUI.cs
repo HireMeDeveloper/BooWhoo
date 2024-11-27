@@ -1,7 +1,9 @@
 using TMPro;
 using UnityEngine;
 
-
+/// <summary>
+/// Display tooltip information
+/// </summary>
 public class TooltipUI : MonoBehaviour
 {
 	public static TooltipUI Instance { get; private set; }
@@ -17,6 +19,11 @@ public class TooltipUI : MonoBehaviour
 		HideTooltip();
 
 	}
+
+	/// <summary>
+	/// Show tooltip
+	/// </summary>
+	/// <param name="name"></param>
 	public void ShowTooltip(string name)
 	{
 		// Set Content
@@ -35,6 +42,9 @@ public class TooltipUI : MonoBehaviour
 	}
 
 
+	/// <summary>
+	/// Update tooltip position
+	/// </summary>
 	private void Update()
 	{
 		if (!content.gameObject.activeSelf) return;
@@ -49,11 +59,18 @@ public class TooltipUI : MonoBehaviour
 		transform.localPosition = localPoint;
 	}
 
+	/// <summary>
+	/// Hide tooltip
+	/// </summary>
 	public void HideTooltip()
 	{
 		content.gameObject.SetActive(false);
 	}
 
+	/// <summary>
+	/// Set tooltip information
+	/// </summary>
+	/// <param name="name"></param>
 	public void SetTooltipInfo(string name)
 	{
 

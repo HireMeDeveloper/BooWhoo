@@ -10,3 +10,4 @@
 - (GuID) ID -> is the actual ID of the item.
 - (String) TaskName -> is the name of the item. Note that to edit the name, edit the file name
 - (String) Description -> is the description of the item
+- (Item SO) Required Item -> is the item required to complete the task
