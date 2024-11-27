@@ -56,6 +56,11 @@ public class DialogUser : MonoBehaviour
         TriggerConversation(conversation, null);
     }
 
+    public void CloseConversation() {
+        StopTyping();
+        dialogBox.Hide();
+    }
+
     private void MoveToNextLine()
     {
         if (currentConversation == null) return;

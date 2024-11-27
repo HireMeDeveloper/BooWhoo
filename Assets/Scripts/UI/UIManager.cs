@@ -41,8 +41,8 @@ public class UIManager : MonoBehaviour
 
         playerInput = GetComponent<PlayerInput>();
 
-        LoadAudioData();
         AudioManager.CreateAudio("MainMenu");
+        LoadAudioData();
 
         CloseOptionsMenu();
         ClosePauseMenu();
@@ -157,22 +157,19 @@ public class UIManager : MonoBehaviour
     public void SaveMusicData()
     {
         PlayerPrefs.SetFloat(musicPref, musicSlider.value);
-        
-        //AudioManager.UpdateVolume();
+        AudioManager.UpdateVolume();
     }
 
     public void SaveAmbientData()
     {
         PlayerPrefs.SetFloat(ambientPref, ambientSlider.value);
-        
-        //AudioManager.UpdateVolume();
+        AudioManager.UpdateVolume();
     }
 
     public void SaveSfxData()
     {
         PlayerPrefs.SetFloat(sfxPref, sfxSlider.value);
-
-        //AudioManager.UpdateVolume();
+        AudioManager.UpdateVolume();
     }
 
     public void LoadAudioData()
