@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     // List of interactables colliding with player.
-    // Remove from list when no longer colliding.
+    // Remove from list when no longer colliding in InteractableItems.cs
     public List<GameObject> hoveredInteractables = new List<GameObject>();
     
 
@@ -17,8 +17,8 @@ public class PlayerInteraction : MonoBehaviour
             pickedItem.GetComponent<InteractableItem>().OnInteract(this);
             // TODO: Add to inventory via global inventory manager
         } else if (hoveredInteractables[0].tag == "NPC") {
-            Debug.Log("We talked to an NPC");
-            // TODO: Trigger NPC dialogue code
+            var current_npc = hoveredInteractables[0];
+            current_npc.GetComponent<NPCDialogUser>().OnInteract(this);
         }
     }
 }
