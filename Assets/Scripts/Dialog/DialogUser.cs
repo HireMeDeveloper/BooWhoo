@@ -14,6 +14,7 @@ public class DialogUser : MonoBehaviour
     private int currentDialogIndex = 0;
 
     private float typeDelay = 0.025f;
+    private float endDialogDelay = 0.05f;
     private bool isTyping = false;
 
     public UnityEvent OnTypeChar;
@@ -73,8 +74,8 @@ public class DialogUser : MonoBehaviour
         var nextLine = currentConversation.GetNextLine();
         if (nextLine == null)
         {
+            StartCoroutine(DelayDialogFinish());
             dialogBox.Hide();
-            isTalking = false;
             speechBubble.SetActive(true);
             return;
         }
@@ -126,6 +127,14 @@ public class DialogUser : MonoBehaviour
 
         isTyping = false;
         currentConversation.TriggerLineEnd();
+    }
+
+    // Need this delay or we go straight into next conversation
+    private IEnumerator DelayDialogFinish() 
+    {
+        yield return new WaitForSeconds(endDialogDelay);
+        isTalking = false;
+
     }
 
     private void UpdateDialog()
