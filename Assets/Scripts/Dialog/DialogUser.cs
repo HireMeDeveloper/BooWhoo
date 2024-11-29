@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class DialogUser : MonoBehaviour
 {
     [SerializeField] private DialogBox dialogBox;
+    [SerializeField] protected GameObject speechBubble;
 
     private Conversation currentConversation;
 
@@ -18,6 +19,7 @@ public class DialogUser : MonoBehaviour
     public UnityEvent OnTypeChar;
 
     private PlayerControls playerControls;
+    protected bool isTalking = false;
 
     private void Awake()
     {
@@ -42,6 +44,7 @@ public class DialogUser : MonoBehaviour
 
     public void TriggerConversation(Conversation conversation, Action callback)
     {
+        isTalking = true;
         currentConversation = conversation;
         currentConversation.Init();
 
@@ -56,9 +59,11 @@ public class DialogUser : MonoBehaviour
         TriggerConversation(conversation, null);
     }
 
+    // Use when player exits interact range
     public void CloseConversation() {
         StopTyping();
         dialogBox.Hide();
+        isTalking = false;
     }
 
     private void MoveToNextLine()
@@ -69,6 +74,8 @@ public class DialogUser : MonoBehaviour
         if (nextLine == null)
         {
             dialogBox.Hide();
+            isTalking = false;
+            speechBubble.SetActive(true);
             return;
         }
 
@@ -106,6 +113,8 @@ public class DialogUser : MonoBehaviour
 
         while (currentDialogIndex < currentDialog.Length)
         {
+            
+            AudioManager.CreateAudio("Typing");
             OnTypeChar.Invoke();
 
             currentDialogIndex++;
