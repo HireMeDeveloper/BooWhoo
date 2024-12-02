@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 8707114379587606664}
   - component: {fileID: 8623339703584333298}
   - component: {fileID: 6277677955989297645}
-  - component: {fileID: 178787284005891524}
+  - component: {fileID: 7028701256393756399}
   - component: {fileID: 8128718951361704547}
   - component: {fileID: 3475959639895263256}
   - component: {fileID: 7270069890832270028}
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e257a4aaea269747b58dcd39c4b3244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &178787284005891524
+--- !u!114 &7028701256393756399
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b680496e58f489c3a1a0d309098f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogUser: {fileID: 0}
   hoveredInteractables: []
 --- !u!114 &8128718951361704547
 MonoBehaviour:
@@ -196,6 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogBox: {fileID: 8517751795379806113}
+  speechBubble: {fileID: 0}
   OnTypeChar:
     m_PersistentCalls:
       m_Calls: []

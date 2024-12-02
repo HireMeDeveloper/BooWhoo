@@ -76,7 +76,10 @@ public class DialogUser : MonoBehaviour
         {
             StartCoroutine(DelayDialogFinish());
             dialogBox.Hide();
-            speechBubble.SetActive(true);
+            
+            if (speechBubble != null)
+                speechBubble.SetActive(true);
+
             return;
         }
 
