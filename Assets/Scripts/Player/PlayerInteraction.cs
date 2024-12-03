@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField] PlayerDialogUser playerDialogUser;
+    PlayerDialogUser playerDialogUser;
     // List of interactables colliding with player.
     // Remove from list when no longer colliding in InteractableItems.cs
     public List<GameObject> hoveredInteractables = new List<GameObject>();
-    
+    void Start() {
+        playerDialogUser = GetComponent<PlayerDialogUser>();
+    }
 
     // Allows player to interact with objects and NPCs
     public void Interact() {

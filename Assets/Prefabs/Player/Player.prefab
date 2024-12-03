@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 8623339703584333298}
   - component: {fileID: 6277677955989297645}
   - component: {fileID: 7028701256393756399}
-  - component: {fileID: 8128718951361704547}
+  - component: {fileID: 3759360824741126587}
   - component: {fileID: 3475959639895263256}
   - component: {fileID: 7270069890832270028}
   m_Layer: 0
@@ -182,9 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b680496e58f489c3a1a0d309098f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogUser: {fileID: 0}
   hoveredInteractables: []
---- !u!114 &8128718951361704547
+--- !u!114 &3759360824741126587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,7 +192,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1989675864947508642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86df6c4a5f23b9443957c27ba2f293b7, type: 3}
+  m_Script: {fileID: 11500000, guid: ae40d4bfa377d3b458abdd177233588a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogBox: {fileID: 8517751795379806113}
@@ -201,6 +200,33 @@ MonoBehaviour:
   OnTypeChar:
     m_PersistentCalls:
       m_Calls: []
+  emptyConversation:
+    conversationLines:
+    - text: Darn. Nothing here...
+      OnLineFinish:
+        m_PersistentCalls:
+          m_Calls: []
+    onConversationEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  notEmptyConversation:
+    conversationLines:
+    - text: Oh? What's that?
+      OnLineFinish:
+        m_PersistentCalls:
+          m_Calls: []
+    onConversationEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  foundItemConversation:
+    conversationLines:
+    - text: Nice! An item!
+      OnLineFinish:
+        m_PersistentCalls:
+          m_Calls: []
+    onConversationEnd:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!50 &3475959639895263256
 Rigidbody2D:
   serializedVersion: 4
@@ -600,5 +626,5 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
