@@ -37,3 +37,7 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 5009fc190ddce3447bc283e2ec170b04, type: 3}
     type: ambient
     looping: 0
+  - name: Typing
+    audioClip: {fileID: 8300000, guid: 16dbe3b33fecca842ae637c8a29b9956, type: 3}
+    type: sfx
+    looping: 0
