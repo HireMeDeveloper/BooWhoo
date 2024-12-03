@@ -9,7 +9,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
     public Animator anim;
     // Check this in editor for empty searchables
     public bool isEmpty;
-    bool opened = false;
+    public bool opened = false;
 
     public void PlayOpenAnim() {
         if (!opened) {

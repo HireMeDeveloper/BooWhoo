@@ -16,7 +16,7 @@ public class DialogUser : MonoBehaviour
     private float typeDelay = 0.025f;
     private float endDialogDelay = 0.05f;
     private bool isTyping = false;
-
+    private bool firstLineStarted = false;
     public UnityEvent OnTypeChar;
 
     private PlayerControls playerControls;
@@ -30,15 +30,21 @@ public class DialogUser : MonoBehaviour
 
     protected void Update()
     {
-        if (playerControls.player.dialogoptionnext.WasPerformedThisFrame())
+        // Need isTalking check here or NPC keeps talking once player leaves range and presses interact again.
+        if (playerControls.player.dialogoptionnext.WasPerformedThisFrame() && isTalking)
         {
-            if (isTyping)
-            {
-                SkipDialog();
-            }
-            else
-            {
-                MoveToNextLine();
+            // Need this if/else check or the first line will finish immediately
+            if (!firstLineStarted) {
+                if (isTyping)
+                {
+                    SkipDialog();
+                }
+                else
+                {
+                    MoveToNextLine();
+                }
+            } else {
+                firstLineStarted = false;
             }
         }
     }
@@ -53,6 +59,7 @@ public class DialogUser : MonoBehaviour
 
         var firstLine = conversation.GetNextLine();
         StartTyping(firstLine);
+        firstLineStarted = true;
     }
 
     public void TriggerConversation(Conversation conversation)
