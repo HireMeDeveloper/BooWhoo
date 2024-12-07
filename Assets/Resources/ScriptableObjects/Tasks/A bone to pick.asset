@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaded15cdb2ca4f4da9b08f0fb20cb9f, type: 3}
+  m_Name: A bone to pick
+  m_EditorClassIdentifier: 
+  ID: 8d39f0d823c82f54f9a54b3ed9fb31cd
+  TaskName: A bone to pick
+  SingleLineDescription: Find a bone for the dog to chew on.
+  Description: Find a bone for the dog to chew on.
+  requiredItem: {fileID: 11400000, guid: 2ec4462b17535174b8aba9122156e1b2, type: 2}

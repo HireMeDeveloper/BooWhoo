@@ -24,6 +24,9 @@ public class CandyInventory
 	/// The amount of candy in the player's inventory.
 	/// </summary>
 	public int CandyCount { get; private set; }
+
+	public bool CanGetCandy => CandyCount > 0;
+
 	public CandyInventory(bool isClearPlayerPref = false)
 	{
 		Instance = this;

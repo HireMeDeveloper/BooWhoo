@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaded15cdb2ca4f4da9b08f0fb20cb9f, type: 3}
+  m_Name: The chase...
+  m_EditorClassIdentifier: 
+  ID: 67bc8d316368d0d449d92c1de20cb460
+  TaskName: The chase...
+  SingleLineDescription: Help [Cat's name] start conversing with [mouse's name]
+  Description: Help [Cat's name] start conversing with [mouse's name]
+  requiredItem: {fileID: 11400000, guid: 2b26fd14e6ff7f144b887883db6f92d5, type: 2}

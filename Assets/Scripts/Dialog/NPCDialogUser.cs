@@ -1,98 +1,124 @@
 using UnityEngine;
 public class NPCDialogUser : DialogUser, IInteractable
 {
-    [SerializeField] private Conversation preHelpConversation;
-    [SerializeField] private Conversation postHelpConversation;
-    [SerializeField] private Conversation giveCandyConversation;
-    [SerializeField] private Conversation giveItemConversation;
+	[SerializeField] private Conversation preHelpConversation;
+	[SerializeField] private Conversation postHelpConversation;
+	[SerializeField] private Conversation giveCandyConversation;
+	[SerializeField] private Conversation giveItemConversation;
 
-    private bool hasBeenHelped = false;
-    private bool hasBeenGivenCandy = false;
-    private bool playedPreHelpOnce = false;
-    
+	private bool hasBeenHelped = false;
+	private bool hasBeenGivenCandy = false;
+	private bool playedPreHelpOnce = false;
 
-    private void GiveCandy()
-    {
-        hasBeenGivenCandy = true;
+	[SerializeField] private ItemSO requiredItem;
+	[SerializeField] private TaskSO requiredTask;
 
-        // TODO: Update the candy counts in player prefs
+	private bool hasGivenTask = false;
 
-        TriggerConversation(giveCandyConversation);
-    }
 
-    private void Listen()
-    {
-        if (hasBeenHelped == false)
-        {
-            TriggerConversation(preHelpConversation);
-        }
-        else
-        {
-            TriggerConversation(postHelpConversation);
-        }
-    }
+	private void GiveCandy()
+	{
+		hasBeenGivenCandy = true;
 
-    private void GiveItem()
-    {
-        hasBeenHelped = true;
-        TriggerConversation(giveItemConversation);
-    }
+		CandyInventory.Instance.RemoveCandy(1);
 
-    void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.tag == "Player") {
-            OnEnter(col.gameObject.GetComponent<PlayerInteraction>());
-        }
-    }
+		TriggerConversation(giveCandyConversation);
+	}
 
-    void OnTriggerExit2D(Collider2D col) {
-        if (col.gameObject.tag == "Player") {
-            OnExit(col.gameObject.GetComponent<PlayerInteraction>());
-        }
-    }
+	private void Listen()
+	{
+		if (hasBeenHelped == false)
+		{
+			TriggerConversation(preHelpConversation);
+		}
+		else
+		{
+			TriggerConversation(postHelpConversation);
+		}
+	}
 
-     // IInteractable methods
-    public void OnEnter(PlayerInteraction playerInteraction) {
-        speechBubble.SetActive(true);
-        playerInteraction.hoveredInteractables.Insert(0, gameObject);
-    }
-    public void OnExit(PlayerInteraction playerInteraction) {
-        CloseConversation();
-        speechBubble.SetActive(false);
-        for (int i = 0; i < playerInteraction.hoveredInteractables.Count; i++) {
-            if (gameObject == playerInteraction.hoveredInteractables[i]) {
-                playerInteraction.hoveredInteractables.RemoveAt(i);
-                break;
-            }
-        }
-    }
-    public void OnInteract(PlayerInteraction playerInteraction) {
-        if (!isTalking) {
-            speechBubble.SetActive(false);
-            if (!playedPreHelpOnce) {
-                Listen();
-                playedPreHelpOnce = true;
-                return;
-            }
+	private void GiveItem()
+	{
+		hasBeenHelped = true;
 
-            // TODO: Read candy count from player prefs
-            var candyCount = 1;
+		TaskSystem.Instance.FinishTask(requiredTask);
 
-            if (hasBeenGivenCandy == false && candyCount > 0)
-            {
-                GiveCandy();
-                return;
-            }
+		TriggerConversation(giveItemConversation);
+	}
 
-            // TODO: Read currentItem from player prefs
-            var hasValidItem = true;
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		if (col.gameObject.tag == "Player")
+		{
+			OnEnter(col.gameObject.GetComponent<PlayerInteraction>());
+		}
+	}
 
-            if (hasBeenHelped == false && hasValidItem)
-            {
-                GiveItem();
-                return;
-            }
+	void OnTriggerExit2D(Collider2D col)
+	{
+		if (col.gameObject.tag == "Player")
+		{
+			OnExit(col.gameObject.GetComponent<PlayerInteraction>());
+		}
+	}
 
-            Listen();
-        }
-    }
+	// IInteractable methods
+	public void OnEnter(PlayerInteraction playerInteraction)
+	{
+		speechBubble.SetActive(true);
+		playerInteraction.hoveredInteractables.Insert(0, gameObject);
+	}
+	public void OnExit(PlayerInteraction playerInteraction)
+	{
+		CloseConversation();
+		speechBubble.SetActive(false);
+		for (int i = 0; i < playerInteraction.hoveredInteractables.Count; i++)
+		{
+			if (gameObject == playerInteraction.hoveredInteractables[i])
+			{
+				playerInteraction.hoveredInteractables.RemoveAt(i);
+				break;
+			}
+		}
+	}
+	public void OnInteract(PlayerInteraction playerInteraction)
+	{
+		if (!isTalking)
+		{
+			speechBubble.SetActive(false);
+			if (!playedPreHelpOnce)
+			{
+				Listen();
+				playedPreHelpOnce = true;
+				return;
+			}
+
+			if (hasBeenGivenCandy == false && CandyInventory.Instance.CanGetCandy)
+			{
+
+				GiveCandy();
+				return;
+			}
+
+			var hasValidItem = requiredItem != null && InventorySystem.Instance.SelectedItem == requiredItem;
+
+			if (hasBeenHelped == false && hasValidItem)
+			{
+
+				GiveItem();
+				return;
+			}
+
+			Listen();
+		}
+	}
+
+	public void GiveTaskToPlayer()
+	{
+		if (hasBeenHelped || hasGivenTask) return;
+
+		Debug.Log("Giving task to player");
+		hasGivenTask = true;
+		TaskSystem.Instance.AddTask(requiredTask);
+	}
 }

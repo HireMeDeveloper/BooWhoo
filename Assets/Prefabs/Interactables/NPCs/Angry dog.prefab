@@ -226,6 +226,8 @@ MonoBehaviour:
     onConversationEnd:
       m_PersistentCalls:
         m_Calls: []
+  requiredItem: {fileID: 11400000, guid: 2ec4462b17535174b8aba9122156e1b2, type: 2}
+  requiredTask: {fileID: 11400000, guid: 2e3020c86fdb60f4f9520b66cdf3fa75, type: 2}
 --- !u!50 &5449971468748838010
 Rigidbody2D:
   serializedVersion: 4
