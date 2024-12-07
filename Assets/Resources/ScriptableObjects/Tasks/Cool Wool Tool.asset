@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaded15cdb2ca4f4da9b08f0fb20cb9f, type: 3}
-  m_Name: Do me task 2
+  m_Name: Cool Wool Tool
   m_EditorClassIdentifier: 
-  ID: 8d39f0d823c82f54f9a54b3ed9fb31cd
-  TaskName: Do me task 2
-  SingleLineDescription: Give me food
-  Description: I am hungry and Iw ant foor
-  requiredItem: {fileID: 11400000, guid: 2ec4462b17535174b8aba9122156e1b2, type: 2}
+  ID: 67bc8d316368d0d449d92c1de20cb460
+  TaskName: Cool Wool Tool
+  SingleLineDescription: ' Bring the sheep something to shave with.'
+  Description: ' Bring the sheep something to shave with.'
+  requiredItem: {fileID: 11400000, guid: 2b26fd14e6ff7f144b887883db6f92d5, type: 2}

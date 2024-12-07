@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ea146de871891b4a8c063f849eba27f, type: 3}
-  m_Name: AnotherApple
+  m_Name: Fertilizer
   m_EditorClassIdentifier: 
   ID: 82775ca986484e946b904bc5e1c307b3
-  Name: AnotherApple
+  ItemName: Fertilizer
   SpriteIcon: {fileID: 21300000, guid: 3f2d8e263d8314a48a35859e01318f35, type: 3}
-  Description: Hatdog Chees dog
+  Description: 4 out of 5 Plants worldwide recommend this food!
