@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 5449971468748838010}
   - component: {fileID: 5377017275625448378}
   m_Layer: 0
-  m_Name: NPC
+  m_Name: Cat
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.20496617, g: 0.2887443, b: 0.9245283, a: 1}
+  m_Color: {r: 0, g: 0.47058824, b: 0.39222696, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -168,19 +168,23 @@ MonoBehaviour:
       m_Calls: []
   preHelpConversation:
     conversationLines:
-    - text: '"Man... This is the third failure this month..."'
+    - text: '"Oh nyo... I''m running out of time...!"'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
-    - text: '"At this rate, my dream... My grandpa''s dream..."'
+    - text: '"It''s only a matter of time before she leaves...!"'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
-    - text: '"I don''t get it... What am I doing wrong?"'
+    - text: '"Or worse! She thinks I''m a stalker!"'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
-    - text: '"ARGH! IF ONLY I HAD SOME SORT OF PLANT-FOOD!"'
+    - text: '"AND THEN I GET TAKEN TO JAIL!"'
+      OnLineFinish:
+        m_PersistentCalls:
+          m_Calls: []
+    - text: '"If only I knew more about her... Like something she likes...!"'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
@@ -189,15 +193,15 @@ MonoBehaviour:
         m_Calls: []
   postHelpConversation:
     conversationLines:
-    - text: '"The crops are looking nice!"'
+    - text: '"Yes, this will work greatly!"'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
-    - text: '"...You watching, old man?"'
+    - text: '"I bet I''ll have enough to make one for myself too."'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
-    - text: '"Your plants will be just fine in my hands after all..."'
+    - text: '"We''ll be matching!"'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
@@ -206,7 +210,15 @@ MonoBehaviour:
         m_Calls: []
   giveCandyConversation:
     conversationLines:
-    - text: '"Ooooo! This is my grandpa''s favorite candy!"'
+    - text: '"...Huh? Candy?"'
+      OnLineFinish:
+        m_PersistentCalls:
+          m_Calls: []
+    - text: '"Wow... First ice cream and now this?"'
+      OnLineFinish:
+        m_PersistentCalls:
+          m_Calls: []
+    - text: '"Must be my lucky day, haha!"'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
@@ -215,19 +227,15 @@ MonoBehaviour:
         m_Calls: []
   giveItemConversation:
     conversationLines:
-    - text: '"Oh hey, this is... Plant-food!"'
+    - text: '"(gasp) She likes ice cream!"'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
-    - text: '"Was this just lying here?"'
+    - text: '"OMYGOSH! Is that white chocolate?! Or Vanilla?"'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
-    - text: '"...Meh, who cares!"'
-      OnLineFinish:
-        m_PersistentCalls:
-          m_Calls: []
-    - text: '"This is just what the doc ordered!"'
+    - text: '"...Only one way to find out."'
       OnLineFinish:
         m_PersistentCalls:
           m_Calls: []
