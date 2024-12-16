@@ -25,10 +25,12 @@ public class SelectedItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	{
 		if (e.Item == null)
 		{
-			sprite.sprite = null;
+			if (sprite != null)
+				sprite.sprite = null;
 			return;
 		}
-		sprite.sprite = e.Item.SpriteIcon;
+		if (sprite != null)
+			sprite.sprite = e.Item.SpriteIcon;
 	}
 
 	/// <summary>
