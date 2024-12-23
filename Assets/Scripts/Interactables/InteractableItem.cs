@@ -10,10 +10,17 @@ public class InteractableItem : MonoBehaviour, IInteractable
     // Check this in editor for empty searchables
     public bool isEmpty;
     public bool opened = false;
+ 
+    public bool trashcan = false;
+    public bool mailbox = false;
 
     public void PlayOpenAnim() {
         if (!opened) {
-            anim.Play("Open");
+            if (trashcan) {
+                anim.Play("TrashOpen");
+            } else if (mailbox) {
+                anim.Play("MailOpen");
+            }
             opened = true;
         }
     }

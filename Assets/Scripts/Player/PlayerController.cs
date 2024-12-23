@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
         } else {
             inAir = true;
         }
-        Debug.Log(inAir);
 
         if (playerInput.actions["Interact"].WasPressedThisFrame() && playerInteraction.hoveredInteractables.Count > 0) {
             playerInteraction.Interact();
