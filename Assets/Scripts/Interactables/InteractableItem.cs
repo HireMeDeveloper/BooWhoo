@@ -16,10 +16,18 @@ public class InteractableItem : MonoBehaviour, IInteractable
 
     public void PlayOpenAnim() {
         if (!opened) {
-            if (trashcan) {
-                anim.Play("TrashOpen");
-            } else if (mailbox) {
-                anim.Play("MailOpen");
+            if (isEmpty) {
+                if (trashcan) {
+                    anim.Play("EmptyTrashOpen");
+                } else if (mailbox) {
+                    anim.Play("EmptyMailOpen");
+                }
+            } else {
+                if (trashcan) {
+                    anim.Play("TrashOpen");
+                } else if (mailbox) {
+                    anim.Play("MailOpen");
+                }
             }
             opened = true;
         }
