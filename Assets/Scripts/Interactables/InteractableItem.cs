@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class InteractableItem : MonoBehaviour, IInteractable
 {
+    // Need to set the box collider to false or the player will pick up the item instead of opening container
+    public GameObject item;
     public Animator anim;
     // Check this in editor for empty searchables
     public bool isEmpty;
@@ -29,6 +31,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
                     anim.Play("MailOpen");
                 }
             }
+            item.GetComponent<BoxCollider2D>().enabled = true;
             opened = true;
         }
     }
